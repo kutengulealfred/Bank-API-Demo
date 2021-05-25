@@ -257,5 +257,10 @@ namespace BankAPIAssessment.Services.Implementations
             return response;
 
         }
+
+        public IEnumerable<Transaction> GetAllTransactions()
+        {
+            return _dbContext.Transactions.ToList();
+        }
     }
 }

@@ -33,6 +33,14 @@ namespace BankAPIAssessment.Controllers
             return Ok(_transactionService.CreateNewTransaction(transaction));
         }
 
+        [HttpGet]
+        [Route("get_all_transactions")]
+        public IActionResult GetAllTransactions()
+        {
+
+            return Json(new { data = _transactionService.GetAllTransactions() });
+        }
+
         [HttpPost]
         [Route("make_deposit")]
         public IActionResult MakeDeposit(string AccountNumber, decimal Amount, string TransactionPin)

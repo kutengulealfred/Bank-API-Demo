@@ -34,6 +34,7 @@ namespace BankAPIAssessment
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.AddControllers();
             services.AddCors();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IAccountService, AccountService>();
@@ -88,6 +89,9 @@ namespace BankAPIAssessment
             }
 
             app.UseHttpsRedirection();
+
+            app.UseRouting();
+
             app.UseStaticFiles();
 
             
@@ -97,12 +101,20 @@ namespace BankAPIAssessment
                 var prefix = string.Empty;
                 x.SwaggerEndpoint($"{prefix}/swagger/v2/swagger.json", "Wonderlabz Assessment Banking API doc");
             });
-            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200/"));
+            app.UseCors(x => x.AllowAnyHeader()
+                .AllowAnyMethod()
+                .WithOrigins("http://localhost:4200/"));
             app.UseAuthorization();
             app.UseAuthentication();
             app.UseMvc();
 
-           
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                
+            });
+
+
         }
     }
 }
