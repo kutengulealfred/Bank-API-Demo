@@ -48,7 +48,7 @@ namespace BankAPIAssessment.Models
     public enum AccountType
     {
         Savings, //savings => 0., current => 1 etc
-        Current,
+        Current
 
     }
 }
